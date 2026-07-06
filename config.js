@@ -35,6 +35,13 @@ window.SITE_CONFIG = {
     gameSession: 'assets/game-session.jpg'
   },
 
+  /* ВИДЕО В СЕКЦИИ «ОБ ИГРЕ» — #about */
+  aboutVideo: {
+    videoUrl: 'https://rutube.ru/video/private/168d7227e8f6f182baa1dfe133d3f5b9/?p=C6NQTOzALh0wXHSTju6ZRA',
+    videoId: '168d7227e8f6f182baa1dfe133d3f5b9',
+    pepper: 'C6NQTOzALh0wXHSTju6ZRA'
+  },
+
   /* ФОТО С ИГРЫ — секция #event-video */
   eventVideo: {
     title: 'Как проходит игра «Система»',

@@ -49,10 +49,11 @@
     return url;
   }
 
-  function buildVideoSrc(url) {
+  function buildVideoSrc(url, muted) {
     var embed = toEmbedUrl(url);
     if (!embed) return '';
-    return embed + (embed.indexOf('?') > -1 ? '&' : '?') + 'autoplay=1';
+    var params = 'autoplay=1' + (muted ? '&mute=1' : '');
+    return embed + (embed.indexOf('?') > -1 ? '&' : '?') + params;
   }
 
   function getYouTubeThumb(url) {
@@ -377,6 +378,29 @@
     document.title = document.title.replace(/· \d+ июля[^·]*/, '· ' + event.date + (event.city ? ' · ' + event.city : ''));
   }
 
+  /* ---- About video (секция #about) ---- */
+  function initAboutVideo() {
+    var av = config.aboutVideo || {};
+    var frame = document.getElementById('aboutVideoFrame');
+    var player = document.getElementById('aboutVideo');
+
+    if (!frame || !av.videoUrl) return;
+
+    frame.src = buildVideoSrc(av.videoUrl, true);
+
+    if (player) {
+      player.addEventListener('click', function () {
+        if (player.classList.contains('is-unmuted')) return;
+
+        try {
+          frame.contentWindow.postMessage(JSON.stringify({ type: 'player:unMute' }), '*');
+        } catch (err) { /* iframe may not be ready yet */ }
+
+        player.classList.add('is-unmuted');
+      });
+    }
+  }
+
   /* ---- Event photo (секция #event-video) ---- */
   function initEventVideo() {
     var ev = config.eventVideo || {};
@@ -414,6 +438,7 @@
   renderReviews();
   initLinks();
   initImages();
+  initAboutVideo();
   initEventVideo();
   observeReveals();
 })();

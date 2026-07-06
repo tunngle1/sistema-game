@@ -105,20 +105,14 @@
     <section class="section about" id="about">
       <div class="container">
         <div class="about__grid">
-          <div class="about__chart reveal">
-            <div class="chart-widget">
-              <div class="chart-widget__radar"></div>
-              <svg class="chart-widget__line" viewBox="0 0 300 200" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stop-color="#2b8cff" stop-opacity="0"/>
-                    <stop offset="50%" stop-color="#5cadff"/>
-                    <stop offset="100%" stop-color="#2b8cff" stop-opacity="0"/>
-                  </linearGradient>
-                </defs>
-                <path d="M0,160 Q60,140 90,100 T150,60 T210,40 T300,20" fill="none" stroke="url(#lineGrad)" stroke-width="2.5"/>
-                <path d="M0,160 Q60,140 90,100 T150,60 T210,40 T300,20 L300,200 L0,200 Z" fill="url(#lineGrad)" opacity="0.08"/>
-              </svg>
+          <div class="about__video reveal" id="aboutVideoBlock">
+            <div class="about-video" id="aboutVideo">
+              <iframe
+                id="aboutVideoFrame"
+                title="Игра «Система»"
+                allow="clipboard-write; autoplay; encrypted-media; picture-in-picture"
+                allowfullscreen
+              ></iframe>
             </div>
           </div>
           <div class="about__text reveal">
