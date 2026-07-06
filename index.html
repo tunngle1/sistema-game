@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Игра «Система» — Дмитрий Шкаров · 18 июля</title>
-  <meta name="description" content="Проживи 30 лет своей жизни за 2,5 часа. Авторская трансформационная игра для предпринимателей. 18 июля.">
+  <title>Игра «Система» — Дмитрий Шкаров · 15 июля · Москва</title>
+  <meta name="description" content="Проживи 30 лет своей жизни за 2,5 часа. Офлайн в Москве, 15 июля, 19:00–22:00. Авторская игра для предпринимателей.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,9 +19,9 @@
       <a href="#" class="logo">
         <img src="assets/logo.png" alt="Система" class="logo__img" id="logoHeader">
       </a>
-      <div class="header__date">
+      <div class="header__date" id="headerDate">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="1.5"/></svg>
-        18 июля
+        15 июля · Москва
       </div>
       <button class="burger" aria-label="Меню" id="burger"><span></span><span></span></button>
     </div>
@@ -53,6 +53,11 @@
             Узнай, какие ошибки в ключевых сферах жизни ты совершал — и какие ещё можешь избежать.
             Три главные системы: <strong>здоровье</strong>, <strong>отношения</strong> и <strong>деньги</strong>.
           </p>
+          <div class="hero__meta reveal" id="heroMeta">
+            <span class="hero__meta-item">15 июля</span>
+            <span class="hero__meta-item">19:00–22:00</span>
+            <span class="hero__meta-item">Москва · Офлайн</span>
+          </div>
           <button class="btn btn--primary btn--lg" data-modal-open>
             Зарегистрироваться
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -281,7 +286,7 @@
       </div>
     </section>
 
-    <!-- TILDA BLOCK: EVENT VIDEO — сюда видео с мероприятия -->
+    <!-- TILDA BLOCK: EVENT PHOTO — фото с игры -->
     <section class="section event-video" id="event-video">
       <div class="container">
         <div class="event-video__grid">
@@ -295,11 +300,7 @@
           <div class="event-video__player reveal" id="eventVideoBlock">
             <div class="event-video__poster" id="eventVideoPoster">
               <img src="assets/game-session.jpg" alt="Игра «Система» — процесс разбора" id="eventVideoPosterImg">
-              <button class="event-video__play" id="eventVideoPlay" aria-label="Смотреть видео с игры">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              </button>
             </div>
-            <div class="event-video__embed" id="eventVideoEmbed" hidden></div>
           </div>
         </div>
       </div>
@@ -412,20 +413,20 @@
         <div class="pricing__card reveal">
           <div class="pricing__info">
             <h2 class="section__title">Регистрация и оплата</h2>
-            <p class="pricing__desc">Места ограничены. После регистрации — переход к оплате и подтверждение участия 18 июля.</p>
+            <p class="pricing__desc" id="pricingDesc">Места ограничены. Офлайн в Москве, 15 июля, 19:00–22:00. После регистрации — оплата и подтверждение участия.</p>
             <ul class="pricing__includes">
-              <li>2,5 часа живой игры-разбора с автором метода</li>
+              <li>3 часа живой игры-разбора с автором метода</li>
               <li>Системный разбор здоровья, отношений и денег</li>
               <li>Личная карта решений и следующих шагов</li>
-              <li>Офлайн или онлайн</li>
+              <li>Офлайн · Москва</li>
             </ul>
           </div>
           <div class="pricing__action">
             <div class="pricing__price">
-              <span class="pricing__amount" id="priceDisplay">15 000</span>
+              <span class="pricing__amount" id="priceDisplay">5 000</span>
               <span class="pricing__currency" id="currencyDisplay">₽</span>
             </div>
-            <p class="pricing__note" id="priceLabel">Участие в игре «Система» · 18 июля</p>
+            <p class="pricing__note" id="priceLabel">Участие в игре «Система» · 15 июля · Москва</p>
             <button class="btn btn--primary btn--lg btn--full" data-modal-open>
               Записаться и оплатить
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -451,8 +452,8 @@
             Иногда достаточно просто посмотреть на ситуацию с другого уровня.
           </h2>
           <div class="cta__meta">
-            <span class="cta__date">18 июля</span>
-            <span class="cta__seats">Места ограничены</span>
+            <span class="cta__date" id="ctaDate">15 июля</span>
+            <span class="cta__seats">Москва · 19:00–22:00 · Офлайн</span>
           </div>
           <button class="btn btn--primary btn--lg" data-modal-open>
             Регистрация на игру
@@ -471,7 +472,7 @@
         <img src="assets/logo.png" alt="Система" class="logo__img logo__img--footer" id="logoFooter">
       </div>
       <div class="footer__links">
-        <a href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+        <a href="https://t.me/Shkarovbis" target="_blank" rel="noopener">Telegram @Shkarovbis</a>
         <a href="privacy.html">Политика конфиденциальности</a>
       </div>
       <p class="footer__copy">© 2026 Дмитрий Шкаров · Живая трансформационная игра-разбор</p>
@@ -485,8 +486,8 @@
       <button class="modal__close" data-modal-close aria-label="Закрыть">✕</button>
       <div class="modal__step" id="modalStep1">
         <h3 class="modal__title">Регистрация на игру</h3>
-        <p class="modal__subtitle">«Система» · 18 июля</p>
-        <div class="modal__price-tag"><span id="modalPrice">15 000 ₽</span></div>
+        <p class="modal__subtitle" id="modalSubtitle">«Система» · 15 июля · Москва · 19:00</p>
+        <div class="modal__price-tag"><span id="modalPrice">5 000 ₽</span></div>
         <form class="modal__form" id="regForm">
           <label class="field"><span>Имя</span><input type="text" name="name" required placeholder="Ваше имя"></label>
           <label class="field"><span>Телефон</span><input type="tel" name="phone" required placeholder="+7 (___) ___-__-__"></label>
@@ -502,7 +503,7 @@
         <div class="modal__success-icon">✓</div>
         <h3 class="modal__title">Данные приняты</h3>
         <p class="modal__subtitle">Остался последний шаг — оплата участия</p>
-        <div class="modal__price-tag modal__price-tag--large" id="modalPriceConfirm">15 000 ₽</div>
+        <div class="modal__price-tag modal__price-tag--large" id="modalPriceConfirm">5 000 ₽</div>
         <button class="btn btn--primary btn--full" id="payBtn">Оплатить участие</button>
         <p class="modal__pay-note">После оплаты мы свяжемся с вами в Telegram.</p>
       </div>

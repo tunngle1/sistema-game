@@ -3,6 +3,7 @@
 
   var config = window.SITE_CONFIG || {};
   var payment = config.payment || {};
+  var event = config.event || {};
   var reviews = config.reviews || [];
   var links = config.links || {};
 
@@ -32,9 +33,33 @@
   }
 
   /* ---- Reviews grid ---- */
+  function toEmbedUrl(url) {
+    if (!url) return '';
+
+    var privateMatch = url.match(/rutube\.ru\/video\/private\/([a-f0-9]+)\/?\?(?:.*&)?p=([^&]+)/i);
+    if (privateMatch) {
+      return 'https://rutube.ru/play/embed/' + privateMatch[1] + '/?p=' + privateMatch[2];
+    }
+
+    var publicMatch = url.match(/rutube\.ru\/video\/([a-f0-9]+)/i);
+    if (publicMatch && url.indexOf('/play/embed/') === -1) {
+      return 'https://rutube.ru/play/embed/' + publicMatch[1] + '/';
+    }
+
+    return url;
+  }
+
+  function buildVideoSrc(url) {
+    var embed = toEmbedUrl(url);
+    if (!embed) return '';
+    return embed + (embed.indexOf('?') > -1 ? '&' : '?') + 'autoplay=1';
+  }
+
   function getYouTubeThumb(url) {
     var match = url.match(/embed\/([a-zA-Z0-9_-]+)/);
-    if (match) return 'https://img.youtube.com/vi/' + match[1] + '/hqdefault.jpg';
+    if (match && url.indexOf('rutube') === -1) {
+      return 'https://img.youtube.com/vi/' + match[1] + '/hqdefault.jpg';
+    }
     return '';
   }
 
@@ -44,19 +69,16 @@
 
     grid.innerHTML = reviews.map(function (review, i) {
       var thumb = review.thumbnail || getYouTubeThumb(review.videoUrl) || '';
-      var thumbStyle = thumb ? 'background-image:url(' + thumb + ')' : '';
 
       return (
-        '<article class="review-card reveal" data-video-index="' + i + '">' +
-          '<div class="review-card__video" style="' + thumbStyle + '">' +
-            '<button class="review-card__play" aria-label="Смотреть отзыв ' + review.name + '">' +
+        '<article class="review-card review-card--shorts reveal" data-video-index="' + i + '">' +
+          '<div class="review-card__video">' +
+            (thumb
+              ? '<img class="review-card__thumb" src="' + thumb + '" alt="' + review.name + '" loading="lazy">'
+              : '') +
+            '<button class="review-card__play" aria-label="Смотреть: ' + review.name + '">' +
               '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>' +
             '</button>' +
-          '</div>' +
-          '<div class="review-card__body">' +
-            '<p class="review-card__quote">«' + review.quote + '»</p>' +
-            '<p class="review-card__name">' + review.name + '</p>' +
-            '<p class="review-card__role">' + review.role + '</p>' +
           '</div>' +
         '</article>'
       );
@@ -70,6 +92,42 @@
     });
 
     observeReveals(grid.querySelectorAll('.reveal'));
+    loadReviewThumbnails();
+  }
+
+  /* Подгрузка обложек с Rutube API, если не заданы в config */
+  function loadReviewThumbnails() {
+    reviews.forEach(function (review, i) {
+      if (review.thumbnail || !review.videoId) return;
+
+      var apiUrl = 'https://rutube.ru/api/video/' + review.videoId + '/';
+      if (review.pepper) apiUrl += '?p=' + review.pepper;
+
+      fetch(apiUrl)
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (!data.thumbnail_url) return;
+          var card = document.querySelector('.review-card[data-video-index="' + i + '"]');
+          if (!card) return;
+          var video = card.querySelector('.review-card__video');
+          var existing = card.querySelector('.review-card__thumb');
+          if (existing) {
+            existing.src = data.thumbnail_url;
+          } else if (video) {
+            var img = document.createElement('img');
+            img.className = 'review-card__thumb';
+            img.src = data.thumbnail_url;
+            img.alt = review.name;
+            img.loading = 'lazy';
+            video.insertBefore(img, video.firstChild);
+          }
+          if (data.title && review.name.indexOf('отзыв') === -1) {
+            var nameEl = card.querySelector('.review-card__name');
+            if (nameEl) nameEl.textContent = data.title;
+          }
+        })
+        .catch(function () {});
+    });
   }
 
   /* ---- Video modal ---- */
@@ -89,16 +147,16 @@
       return;
     }
 
-    videoFrame.src = review.videoUrl + (review.videoUrl.indexOf('?') > -1 ? '&' : '?') + 'autoplay=1';
+    videoFrame.src = buildVideoSrc(review.videoUrl);
     videoInfo.innerHTML = '<strong>' + review.name + '</strong> — ' + review.role;
-    videoModal.classList.add('open');
+    videoModal.classList.add('modal--shorts', 'open');
     videoModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   }
 
   function closeVideoModal() {
     if (!videoModal) return;
-    videoModal.classList.remove('open');
+    videoModal.classList.remove('open', 'modal--shorts');
     videoModal.setAttribute('aria-hidden', 'true');
     videoFrame.src = '';
     document.body.style.overflow = '';
@@ -205,7 +263,7 @@
   /* ---- Footer / links from config ---- */
   function initLinks() {
     if (links.telegram) {
-      document.querySelectorAll('a[href="https://t.me/"]').forEach(function (a) {
+      document.querySelectorAll('a[href="https://t.me/"], a[href="https://t.me/Shkarovbis"]').forEach(function (a) {
         a.href = links.telegram;
       });
     }
@@ -279,7 +337,47 @@
     });
   }
 
-  /* ---- Event video (видео с мероприятия) ---- */
+  /* ---- Event info ---- */
+  function initEvent() {
+    if (!event.date) return;
+
+    var dateCity = event.date + (event.city ? ' · ' + event.city : '');
+    var timeFormat = [event.time, event.format].filter(Boolean).join(' · ');
+
+    var headerDate = document.getElementById('headerDate');
+    if (headerDate) {
+      var svg = headerDate.querySelector('svg');
+      headerDate.textContent = '';
+      if (svg) headerDate.appendChild(svg);
+      headerDate.appendChild(document.createTextNode(' ' + dateCity));
+    }
+
+    var heroMeta = document.getElementById('heroMeta');
+    if (heroMeta) {
+      var items = [event.date, event.time, (event.city && event.format) ? event.city + ' · ' + event.format : event.city || event.format].filter(Boolean);
+      heroMeta.innerHTML = items.map(function (item) {
+        return '<span class="hero__meta-item">' + item + '</span>';
+      }).join('');
+    }
+
+    var ctaDate = document.getElementById('ctaDate');
+    if (ctaDate) ctaDate.textContent = event.date;
+
+    var modalSubtitle = document.getElementById('modalSubtitle');
+    if (modalSubtitle) {
+      var parts = ['«Система»', event.date, event.city, event.time ? event.time.split('–')[0] : ''].filter(Boolean);
+      modalSubtitle.textContent = parts.join(' · ');
+    }
+
+    var pricingDesc = document.getElementById('pricingDesc');
+    if (pricingDesc && event.city) {
+      pricingDesc.textContent = 'Места ограничены. ' + event.format + ' в ' + event.city + ', ' + event.date + ', ' + event.time + '. После регистрации — оплата и подтверждение участия.';
+    }
+
+    document.title = document.title.replace(/· \d+ июля[^·]*/, '· ' + event.date + (event.city ? ' · ' + event.city : ''));
+  }
+
+  /* ---- Event photo (секция #event-video) ---- */
   function initEventVideo() {
     var ev = config.eventVideo || {};
     var images = config.images || {};
@@ -287,34 +385,12 @@
     var titleEl = document.getElementById('eventVideoTitle');
     var subtitleEl = document.getElementById('eventVideoSubtitle');
     var posterImg = document.getElementById('eventVideoPosterImg');
-    var playBtn = document.getElementById('eventVideoPlay');
-    var poster = document.getElementById('eventVideoPoster');
-    var embedWrap = document.getElementById('eventVideoEmbed');
 
     if (titleEl && ev.title) titleEl.textContent = ev.title;
     if (subtitleEl && ev.subtitle) subtitleEl.textContent = ev.subtitle;
 
     var posterSrc = ev.poster || images.gameSession || 'assets/game-session.jpg';
     if (posterImg) posterImg.src = posterSrc;
-
-    if (playBtn && poster && embedWrap) {
-      playBtn.addEventListener('click', function () {
-        if (!ev.videoUrl) {
-          openVideoModal({
-            name: 'Игра «Система»',
-            role: 'Видео с мероприятия',
-            videoUrl: ''
-          });
-          if (videoInfo) {
-            videoInfo.innerHTML = 'Видео с игры будет добавлено в <code>config.js → eventVideo.videoUrl</code>';
-          }
-          return;
-        }
-        poster.hidden = true;
-        embedWrap.hidden = false;
-        embedWrap.innerHTML = '<iframe src="' + ev.videoUrl + '?autoplay=1" title="' + (ev.title || 'Видео с игры') + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-      });
-    }
   }
 
   /* ---- Images from config ---- */
@@ -334,6 +410,7 @@
 
   /* ---- Init ---- */
   initPricing();
+  initEvent();
   renderReviews();
   initLinks();
   initImages();
