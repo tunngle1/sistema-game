@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Игра «Система» — Дмитрий Шкаров · 18 июля</title>
+  <meta name="description" content="Проживи 30 лет своей жизни за 2,5 часа. Авторская трансформационная игра для предпринимателей. 18 июля.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="assets/logo.png" type="image/png">
+</head>
+<body>
+
+  <!-- TILDA BLOCK: HEADER -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="#" class="logo">
+        <img src="assets/logo.png" alt="Система" class="logo__img" id="logoHeader">
+      </a>
+      <div class="header__date">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="1.5"/></svg>
+        18 июля
+      </div>
+      <button class="burger" aria-label="Меню" id="burger"><span></span><span></span></button>
+    </div>
+    <nav class="mobile-menu" id="mobileMenu">
+      <a href="#about">О игре</a>
+      <a href="#levels">Метод</a>
+      <a href="#event-video">Видео с игры</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#pricing">Участие</a>
+      <button class="btn btn--primary" data-modal-open>Зарегистрироваться</button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- TILDA BLOCK: HERO -->
+    <section class="hero" id="hero">
+      <div class="hero__bg">
+        <div class="hero__board"></div>
+        <div class="hero__overlay"></div>
+        <div class="hero__glow"></div>
+      </div>
+      <div class="container hero__inner">
+        <div class="hero__content reveal">
+          <h1 class="hero__title">
+            Проживи <span class="text-glow">30 лет</span> своей жизни за <span class="text-glow">2,5 часа</span>
+          </h1>
+          <p class="hero__subtitle">
+            Узнай, какие ошибки в ключевых сферах жизни ты совершал — и какие ещё можешь избежать.
+            Три главные системы: <strong>здоровье</strong>, <strong>отношения</strong> и <strong>деньги</strong>.
+          </p>
+          <button class="btn btn--primary btn--lg" data-modal-open>
+            Зарегистрироваться
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TILDA BLOCK: STATS -->
+    <section class="stats-bar">
+      <div class="container">
+        <div class="stats-bar__grid reveal">
+          <div class="stats-bar__item">
+            <div class="stats-bar__icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.5"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <div>
+              <span class="stats-bar__num">2000+</span>
+              <span class="stats-bar__label">партий проведено</span>
+            </div>
+          </div>
+          <div class="stats-bar__item">
+            <div class="stats-bar__icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <div>
+              <span class="stats-bar__num">С 2001</span>
+              <span class="stats-bar__label">года метод работает</span>
+            </div>
+          </div>
+          <div class="stats-bar__item">
+            <div class="stats-bar__icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <div>
+              <span class="stats-bar__num">300+</span>
+              <span class="stats-bar__label">лидерских команд</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TILDA BLOCK: ABOUT -->
+    <section class="section about" id="about">
+      <div class="container">
+        <div class="about__grid">
+          <div class="about__chart reveal">
+            <div class="chart-widget">
+              <div class="chart-widget__radar"></div>
+              <svg class="chart-widget__line" viewBox="0 0 300 200" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#2b8cff" stop-opacity="0"/>
+                    <stop offset="50%" stop-color="#5cadff"/>
+                    <stop offset="100%" stop-color="#2b8cff" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0,160 Q60,140 90,100 T150,60 T210,40 T300,20" fill="none" stroke="url(#lineGrad)" stroke-width="2.5"/>
+                <path d="M0,160 Q60,140 90,100 T150,60 T210,40 T300,20 L300,200 L0,200 Z" fill="url(#lineGrad)" opacity="0.08"/>
+              </svg>
+            </div>
+          </div>
+          <div class="about__text reveal">
+            <h2 class="section__title">
+              Посмотри на ситуацию шире — и найди решение, которое раньше было незаметным
+            </h2>
+            <p>
+              Иногда кажется, что ты зашёл в тупик. Бизнес не растёт так, как хотелось бы.
+              В команде возникают повторяющиеся сложности. Личные цели откладываются,
+              а новые идеи не складываются в единую картину.
+            </p>
+            <p>
+              Часто проблема не в отсутствии решений, а в том, что мы смотрим только
+              на один фрагмент ситуации. Игра «Система» помогает увидеть происходящее объёмно,
+              разобраться в причинах и найти новые возможности для развития.
+            </p>
+            <button class="btn btn--primary" data-modal-open>
+              Попасть на игру
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TILDA BLOCK: LEVELS -->
+    <section class="section levels" id="levels">
+      <div class="container">
+        <div class="section__header reveal">
+          <h2 class="section__title section__title--center">Что такое игра «Система»?</h2>
+          <p class="section__desc section__desc--center">
+            Каждая ситуация — часть более широкой системы. Во время игры мы исследуем проблему сразу с четырёх уровней.
+          </p>
+        </div>
+        <div class="levels__grid">
+          <article class="level-card reveal">
+            <span class="level-card__num">01</span>
+            <div class="level-card__icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M16 16l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Что происходит сейчас</h3>
+            <p>Текущая точка: что происходит в здоровье, отношениях и деньгах прямо сейчас.</p>
+          </article>
+          <article class="level-card reveal">
+            <span class="level-card__num">02</span>
+            <div class="level-card__icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Связь с прошлым</h3>
+            <p>Как ситуация связана с прошлым: откуда пришли повторяющиеся сценарии.</p>
+          </article>
+          <article class="level-card reveal">
+            <span class="level-card__num">03</span>
+            <div class="level-card__icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M6 3v12M18 9v12M12 6v15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <h3>Сценарии будущего</h3>
+            <p>Какие сценарии могут сформировать будущее — и где развилки, меняющие маршрут.</p>
+          </article>
+          <article class="level-card reveal">
+            <span class="level-card__num">04</span>
+            <div class="level-card__icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4.5v7L12 18l-8-4.5v-7L12 2z" stroke="currentColor" stroke-width="1.5"/><path d="M12 18v4M8 20.5l8-4" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <h3>Внешние и внутренние системы</h3>
+            <p>Какие системы влияют на результат и удерживают в прежнем контуре.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TILDA BLOCK: AUDIENCE -->
+    <section class="section audience">
+      <div class="container">
+        <div class="section__header reveal">
+          <h2 class="section__title section__title--center">Для кого эта игра?</h2>
+          <p class="section__desc section__desc--center">Игра подойдёт, если ты:</p>
+        </div>
+        <div class="audience__grid">
+          <div class="audience-card reveal">
+            <div class="audience-card__icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <p>Стоишь перед важным выбором</p>
+          </div>
+          <div class="audience-card reveal">
+            <div class="audience-card__icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M3 17l6-6 4 4 8-10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 5h7v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <p>Хочешь вывести бизнес или проект на новый уровень</p>
+          </div>
+          <div class="audience-card reveal">
+            <div class="audience-card__icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <p>Ищешь нестандартное решение сложной задачи</p>
+          </div>
+          <div class="audience-card reveal">
+            <div class="audience-card__icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <p>Хочешь понять причины повторяющихся ситуаций</p>
+          </div>
+          <div class="audience-card reveal">
+            <div class="audience-card__icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M12 14l9-5-9-5-9 5 9 5z" stroke="currentColor" stroke-width="1.5"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <p>Развиваешь лидерские качества</p>
+          </div>
+          <div class="audience-card reveal">
+            <div class="audience-card__icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4c-.77-1.33-2.69-1.33-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <p>Пытаешься найти причины своих провалов</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TILDA BLOCK: BENEFITS -->
+    <section class="section benefits">
+      <div class="container">
+        <div class="section__header reveal">
+          <h2 class="section__title section__title--center">Что ты получишь после игры</h2>
+        </div>
+        <div class="benefits__grid">
+          <div class="benefit-card reveal">
+            <div class="benefit-card__icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <p>Новый взгляд на свою ситуацию</p>
+          </div>
+          <div class="benefit-card reveal">
+            <div class="benefit-card__icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+            </div>
+            <p>Понимание истинных причин происходящего</p>
+          </div>
+          <div class="benefit-card reveal">
+            <div class="benefit-card__icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            </div>
+            <p>Конкретные идеи и следующие шаги</p>
+          </div>
+          <div class="benefit-card reveal">
+            <div class="benefit-card__icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M9.5 2A5.5 5.5 0 004 7.5c0 1.48.58 2.82 1.53 3.82A5.5 5.5 0 109.5 2z" stroke="currentColor" stroke-width="1.5" transform="translate(2,2) scale(0.85)"/></svg>
+            </div>
+            <p>Ощущение внутренней ясности</p>
+          </div>
+          <div class="benefit-card reveal">
+            <div class="benefit-card__icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <p>Чёткий план — без каши в голове</p>
+          </div>
+        </div>
+        <div class="benefits__cta reveal">
+          <div class="pulse-ring" aria-hidden="true"></div>
+          <button class="btn btn--primary btn--lg" data-modal-open>
+            Присоединиться к игре
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TILDA BLOCK: EVENT VIDEO — сюда видео с мероприятия -->
+    <section class="section event-video" id="event-video">
+      <div class="container">
+        <div class="event-video__grid">
+          <div class="event-video__text reveal">
+            <span class="section__label">Атмосфера игры</span>
+            <h2 class="section__title" id="eventVideoTitle">Посмотри, как проходит игра</h2>
+            <p class="section__desc" id="eventVideoSubtitle">
+              2,5 часа живого разбора — здоровье, отношения, деньги. Увидь формат до регистрации.
+            </p>
+          </div>
+          <div class="event-video__player reveal" id="eventVideoBlock">
+            <div class="event-video__poster" id="eventVideoPoster">
+              <img src="assets/game-session.jpg" alt="Игра «Система» — процесс разбора" id="eventVideoPosterImg">
+              <button class="event-video__play" id="eventVideoPlay" aria-label="Смотреть видео с игры">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
+            <div class="event-video__embed" id="eventVideoEmbed" hidden></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TILDA BLOCK: REVIEWS — сюда видеоотзывы участников -->
+    <section class="section reviews" id="reviews">
+      <div class="container">
+        <div class="section__header reveal">
+          <h2 class="section__title section__title--center">Видеоотзывы участников</h2>
+          <p class="section__desc section__desc--center">Предприниматели и руководители — о том, что изменилось после игры.</p>
+        </div>
+        <div class="reviews__grid" id="reviewsGrid"></div>
+      </div>
+    </section>
+
+    <!-- TILDA BLOCK: PROCESS + AUTHOR -->
+    <section class="section process" id="author">
+      <div class="container">
+        <div class="author-block reveal">
+          <div class="author-block__photo">
+            <img src="assets/author.jpg" alt="Дмитрий Шкаров — автор игры «Система»" id="authorPhoto">
+          </div>
+          <div class="author-block__info">
+            <span class="section__label">Ведёт игру</span>
+            <h2 class="section__title">Дмитрий Шкаров</h2>
+            <p class="author-block__role">Серийный предприниматель · автор игры «Система»</p>
+            <div class="author-block__stats">
+              <div><span class="author-block__stat-num">20</span><span class="author-block__stat-label">лет в бизнесе</span></div>
+              <div><span class="author-block__stat-num">2000+</span><span class="author-block__stat-label">партий</span></div>
+            </div>
+            <p class="author-block__bio">
+              Игра проходит в сопровождении автора с 20-летним опытом.
+              С помощью вопросов, игровых механик и системного подхода участники
+              раскрывают ситуацию, находят взаимосвязи и формируют стратегию.
+            </p>
+          </div>
+        </div>
+
+        <div class="section__header reveal" style="margin-top: 56px;">
+          <h2 class="section__title section__title--center">Как проходит игра</h2>
+        </div>
+        <div class="process__steps reveal">
+          <div class="process-step">
+            <div class="process-step__num">1</div>
+            <h3>Погружение</h3>
+            <p>Формулируем запрос и погружаемся в твою ситуацию через точные вопросы.</p>
+          </div>
+          <div class="process-step__arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="process-step">
+            <div class="process-step__num">2</div>
+            <h3>Анализ и связи</h3>
+            <p>Игровые механики раскрывают взаимосвязи между здоровьем, отношениями и деньгами.</p>
+          </div>
+          <div class="process-step__arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="process-step">
+            <div class="process-step__num">3</div>
+            <h3>Стратегия и решения</h3>
+            <p>Формируешь собственную стратегию и конкретные шаги на будущее.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TILDA BLOCK: WHY -->
+    <section class="section why">
+      <div class="container">
+        <div class="why__card reveal">
+          <h2 class="section__title section__title--center">Почему именно игра?</h2>
+          <div class="why__items why__items--row">
+              <div class="why-item">
+                <div class="why-item__icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8 20h8M12 4v2M6 8h12l-1 10H7L6 8z" stroke="currentColor" stroke-width="1.5"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.5"/></svg>
+                </div>
+                <div>
+                  <h4>Безопасное пространство</h4>
+                  <p>Игра создаёт среду, где можно честно исследовать ситуацию без давления и оценок.</p>
+                </div>
+              </div>
+              <div class="why-item">
+                <div class="why-item__icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="5" cy="6" r="2" stroke="currentColor" stroke-width="1.5"/><circle cx="19" cy="6" r="2" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="18" r="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 7l4 9M17 7l-4 9" stroke="currentColor" stroke-width="1.5"/></svg>
+                </div>
+                <div>
+                  <h4>Системное мышление</h4>
+                  <p>Ты учишься видеть связи сам — навык, который остаётся после встречи.</p>
+                </div>
+              </div>
+              <div class="why-item">
+                <div class="why-item__icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>
+                </div>
+                <div>
+                  <h4>Точка опоры</h4>
+                  <p>Не чужие ответы — а собственное решение, которое подходит именно тебе.</p>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TILDA BLOCK: PRICING -->
+    <section class="section pricing" id="pricing">
+      <div class="container">
+        <div class="pricing__card reveal">
+          <div class="pricing__info">
+            <h2 class="section__title">Регистрация и оплата</h2>
+            <p class="pricing__desc">Места ограничены. После регистрации — переход к оплате и подтверждение участия 18 июля.</p>
+            <ul class="pricing__includes">
+              <li>2,5 часа живой игры-разбора с автором метода</li>
+              <li>Системный разбор здоровья, отношений и денег</li>
+              <li>Личная карта решений и следующих шагов</li>
+              <li>Офлайн или онлайн</li>
+            </ul>
+          </div>
+          <div class="pricing__action">
+            <div class="pricing__price">
+              <span class="pricing__amount" id="priceDisplay">15 000</span>
+              <span class="pricing__currency" id="currencyDisplay">₽</span>
+            </div>
+            <p class="pricing__note" id="priceLabel">Участие в игре «Система» · 18 июля</p>
+            <button class="btn btn--primary btn--lg btn--full" data-modal-open>
+              Записаться и оплатить
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <p class="pricing__secure">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.5"/></svg>
+              Безопасная оплата
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TILDA BLOCK: CTA -->
+    <section class="section cta" id="register">
+      <div class="container">
+        <div class="cta__inner reveal">
+          <div class="cta__logo">
+            <img src="assets/logo.png" alt="Система" class="logo__img logo__img--cta" id="logoCta">
+          </div>
+          <h2 class="cta__title">
+            Возможно, решение, которое ты так долго искал, уже существует.
+            Иногда достаточно просто посмотреть на ситуацию с другого уровня.
+          </h2>
+          <div class="cta__meta">
+            <span class="cta__date">18 июля</span>
+            <span class="cta__seats">Места ограничены</span>
+          </div>
+          <button class="btn btn--primary btn--lg" data-modal-open>
+            Регистрация на игру
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TILDA BLOCK: FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="assets/logo.png" alt="Система" class="logo__img logo__img--footer" id="logoFooter">
+      </div>
+      <div class="footer__links">
+        <a href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+        <a href="privacy.html">Политика конфиденциальности</a>
+      </div>
+      <p class="footer__copy">© 2026 Дмитрий Шкаров · Живая трансформационная игра-разбор</p>
+    </div>
+  </footer>
+
+  <!-- MODALS -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal__overlay" data-modal-close></div>
+    <div class="modal__dialog" role="dialog">
+      <button class="modal__close" data-modal-close aria-label="Закрыть">✕</button>
+      <div class="modal__step" id="modalStep1">
+        <h3 class="modal__title">Регистрация на игру</h3>
+        <p class="modal__subtitle">«Система» · 18 июля</p>
+        <div class="modal__price-tag"><span id="modalPrice">15 000 ₽</span></div>
+        <form class="modal__form" id="regForm">
+          <label class="field"><span>Имя</span><input type="text" name="name" required placeholder="Ваше имя"></label>
+          <label class="field"><span>Телефон</span><input type="tel" name="phone" required placeholder="+7 (___) ___-__-__"></label>
+          <label class="field"><span>Telegram (без @)</span><input type="text" name="telegram" placeholder="username"></label>
+          <label class="checkbox">
+            <input type="checkbox" name="consent" required>
+            <span>Я согласен на <a href="privacy.html" target="_blank">обработку персональных данных</a> и принимаю <a href="privacy.html#offer" target="_blank">условия участия</a>.</span>
+          </label>
+          <button type="submit" class="btn btn--primary btn--full">Перейти к оплате</button>
+        </form>
+      </div>
+      <div class="modal__step" id="modalStep2" hidden>
+        <div class="modal__success-icon">✓</div>
+        <h3 class="modal__title">Данные приняты</h3>
+        <p class="modal__subtitle">Остался последний шаг — оплата участия</p>
+        <div class="modal__price-tag modal__price-tag--large" id="modalPriceConfirm">15 000 ₽</div>
+        <button class="btn btn--primary btn--full" id="payBtn">Оплатить участие</button>
+        <p class="modal__pay-note">После оплаты мы свяжемся с вами в Telegram.</p>
+      </div>
+      <div class="modal__step" id="modalStepDev" hidden>
+        <div class="modal__success-icon">✓</div>
+        <h3 class="modal__title">Заявка принята</h3>
+        <p class="modal__subtitle">Ссылка на оплату будет добавлена перед публикацией.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal modal--video" id="videoModal" aria-hidden="true">
+    <div class="modal__overlay" data-video-close></div>
+    <div class="modal__dialog modal__dialog--video">
+      <button class="modal__close" data-video-close aria-label="Закрыть">✕</button>
+      <div class="video-modal__wrap">
+        <iframe id="videoFrame" src="" title="Видеоотзыв" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="video-modal__info" id="videoInfo"></div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
