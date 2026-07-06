@@ -22,7 +22,8 @@ window.SITE_CONFIG = {
 
   /* Ссылки */
   links: {
-    telegram: 'https://t.me/Shkarovbis',
+    telegram: 'https://t.me/shkarovbiz',
+    youtube: 'https://www.youtube.com/@ДмитрийШкаров-007',
     privacy: 'privacy.html',
     offer: 'privacy.html#offer'
   },

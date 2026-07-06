@@ -262,11 +262,11 @@
 
   /* ---- Footer / links from config ---- */
   function initLinks() {
-    if (links.telegram) {
-      document.querySelectorAll('a[href="https://t.me/"], a[href="https://t.me/Shkarovbis"]').forEach(function (a) {
-        a.href = links.telegram;
-      });
-    }
+    var tg = document.getElementById('linkTelegram');
+    if (tg && links.telegram) tg.href = links.telegram;
+
+    var yt = document.getElementById('linkYoutube');
+    if (yt && links.youtube) yt.href = links.youtube;
   }
 
   /* ---- Mobile menu ---- */
