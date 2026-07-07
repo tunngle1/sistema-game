@@ -225,10 +225,36 @@
   function showFormStepAfterSubmit() {
     if (step1) step1.hidden = true;
     if (payment.enabled && payment.paymentUrl) {
-      if (step2) step2.hidden = false;
+      goToPayment();
     } else if (stepDev) {
+      step1.hidden = true;
       stepDev.hidden = false;
     }
+  }
+
+  function buildPaymentUrl() {
+    if (!payment.paymentUrl) return '';
+
+    var url = payment.paymentUrl;
+    var params = new URLSearchParams();
+
+    if (savedFormData) {
+      if (savedFormData.name) params.set('name', savedFormData.name);
+      if (savedFormData.phone) params.set('phone', savedFormData.phone);
+      if (savedFormData.telegram) params.set('telegram', savedFormData.telegram);
+    }
+
+    if (payment.successUrl) params.set('success_url', payment.successUrl);
+
+    var qs = params.toString();
+    return qs ? url + (url.indexOf('?') > -1 ? '&' : '?') + qs : url;
+  }
+
+  function goToPayment() {
+    var url = buildPaymentUrl();
+    if (!url) return false;
+    window.location.href = url;
+    return true;
   }
 
   function showFormError(message) {
@@ -292,6 +318,13 @@
           if (!result.ok || !result.data.ok) {
             throw new Error(result.data.error || 'submit_failed');
           }
+
+          if (payment.enabled && payment.paymentUrl) {
+            if (submitBtn) submitBtn.textContent = 'Переход к оплате…';
+            goToPayment();
+            return;
+          }
+
           showFormStepAfterSubmit();
         })
         .catch(function () {
@@ -308,23 +341,7 @@
 
   if (payBtn) {
     payBtn.addEventListener('click', function () {
-      if (!payment.paymentUrl) return;
-
-      var url = payment.paymentUrl;
-      var params = new URLSearchParams();
-
-      if (savedFormData) {
-        if (savedFormData.name) params.set('name', savedFormData.name);
-        if (savedFormData.phone) params.set('phone', savedFormData.phone);
-        if (savedFormData.telegram) params.set('telegram', savedFormData.telegram);
-      }
-
-      if (payment.successUrl) params.set('success_url', payment.successUrl);
-
-      var qs = params.toString();
-      if (qs) url += (url.indexOf('?') > -1 ? '&' : '?') + qs;
-
-      window.location.href = url;
+      goToPayment();
     });
   }
 

@@ -15,14 +15,15 @@ window.SITE_CONFIG = {
     endpoint: 'https://sistema-game-bot.vercel.app/api/register'
   },
 
-  /* Оплата */
+  /* Оплата — после регистрации редирект на paymentUrl */
   payment: {
     enabled: true,
     price: 5000,
     currency: '₽',
     label: 'Участие в игре «Система» · 15 июля · Москва',
-    paymentUrl: '',
-    successUrl: ''
+    paymentUrl: '', /* Prodamus / ЮKassa / Tinkoff — ссылка на оплату */
+    successUrl: ''  /* страница «спасибо» после оплаты (опционально) */
+    /* Позже: webhook оплаты → bot/api/payment.js → сообщение в TG «Статус: Оплачено» */
   },
 
   /* Ссылки */
