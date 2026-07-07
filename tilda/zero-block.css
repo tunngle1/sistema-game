@@ -284,22 +284,56 @@ ul { list-style: none; }
 }
 
 .stats-bar__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.stats-bar__metrics {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 14px;
 }
 
 .stats-bar__item {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 20px 24px;
+  padding: 22px 24px;
+  min-height: 96px;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   backdrop-filter: blur(12px);
   box-shadow: var(--shadow-glow);
   transition: var(--transition);
+}
+
+.stats-bar__highlight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 18px 28px;
+  background: linear-gradient(135deg, rgba(43, 140, 255, 0.12) 0%, rgba(10, 20, 50, 0.55) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-glow);
+  text-align: center;
+}
+
+.stats-bar__highlight-text {
+  margin: 0;
+  max-width: 720px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.stats-bar__content {
+  min-width: 0;
 }
 
 .stats-bar__item:hover {
@@ -328,7 +362,9 @@ ul { list-style: none; }
 }
 
 .stats-bar__label {
-  font-size: 12px;
+  display: block;
+  font-size: 13px;
+  line-height: 1.4;
   color: var(--text-muted);
 }
 
@@ -1276,6 +1312,7 @@ ul { list-style: none; }
   .about__grid, .why__grid { grid-template-columns: 1fr; }
   .event-video__grid { grid-template-columns: 1fr; }
   .author-block { grid-template-columns: 1fr; }
+  .stats-bar__metrics { grid-template-columns: 1fr; }
   .why__items--row { grid-template-columns: 1fr; }
   .pricing__card { grid-template-columns: 1fr; }
   .process__steps { flex-wrap: wrap; }
@@ -1288,7 +1325,8 @@ ul { list-style: none; }
   .burger { display: flex; }
   .header__date { font-size: 12px; padding: 6px 12px; }
   .hero { min-height: auto; padding-bottom: 36px; }
-  .stats-bar__grid { grid-template-columns: 1fr; }
+  .stats-bar__metrics { grid-template-columns: 1fr; }
+  .stats-bar__highlight { flex-direction: column; padding: 20px; }
   .audience__grid { grid-template-columns: repeat(2, 1fr); }
   .benefits__grid { grid-template-columns: repeat(2, 1fr); }
   .reviews__grid { grid-template-columns: repeat(3, minmax(140px, 200px)); }
