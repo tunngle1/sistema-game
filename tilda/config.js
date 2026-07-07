@@ -10,6 +10,11 @@ window.SITE_CONFIG = {
     address: '' /* адрес площадки — вставьте когда будет */
   },
 
+  /* Форма регистрации → Telegram-бот (папка bot/, деплой отдельно на Vercel) */
+  form: {
+    endpoint: 'https://sistema-game-bot.vercel.app/api/register'
+  },
+
   /* Оплата */
   payment: {
     enabled: true,

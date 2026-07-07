@@ -1216,6 +1216,16 @@ ul { list-style: none; }
   margin-top: 14px;
 }
 
+.modal__form-error {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #ff8a8a;
+  text-align: center;
+}
+
+.modal__form-error[hidden] { display: none; }
+
 /* Video modal */
 .modal--video .modal__dialog--video {
   max-width: 860px;

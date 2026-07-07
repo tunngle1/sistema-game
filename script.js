@@ -175,6 +175,8 @@
   var stepDev = document.getElementById('modalStepDev');
   var payBtn = document.getElementById('payBtn');
   var savedFormData = null;
+  var formConfig = config.form || {};
+  var formError = document.getElementById('formError');
 
   function resetModal() {
     if (step1) step1.hidden = false;
@@ -185,6 +187,10 @@
       form.hidden = false;
     }
     savedFormData = null;
+    if (formError) {
+      formError.textContent = '';
+      formError.hidden = true;
+    }
   }
 
   function openModal() {
@@ -216,9 +222,29 @@
     }
   });
 
+  function showFormStepAfterSubmit() {
+    if (step1) step1.hidden = true;
+    if (payment.enabled && payment.paymentUrl) {
+      if (step2) step2.hidden = false;
+    } else if (stepDev) {
+      stepDev.hidden = false;
+    }
+  }
+
+  function showFormError(message) {
+    if (!formError) return;
+    formError.textContent = message;
+    formError.hidden = false;
+  }
+
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+
+      if (formError) {
+        formError.textContent = '';
+        formError.hidden = true;
+      }
 
       savedFormData = {
         name: form.name.value.trim(),
@@ -226,16 +252,57 @@
         telegram: form.telegram.value.trim()
       };
 
-      /* TILDA: здесь отправка в Tilda Forms / webhook / CRM */
-      console.log('Registration:', savedFormData);
-
-      step1.hidden = true;
-
-      if (payment.enabled && payment.paymentUrl) {
-        step2.hidden = false;
-      } else {
-        stepDev.hidden = false;
+      var endpoint = formConfig.endpoint;
+      if (!endpoint) {
+        showFormStepAfterSubmit();
+        return;
       }
+
+      var submitBtn = form.querySelector('button[type="submit"]');
+      var btnText = submitBtn ? submitBtn.textContent : '';
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Отправка…';
+      }
+
+      fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: savedFormData.name,
+          phone: savedFormData.phone,
+          telegram: savedFormData.telegram,
+          event: {
+            date: event.date,
+            time: event.time,
+            city: event.city,
+            format: event.format,
+            price: payment.price,
+            currency: payment.currency
+          }
+        })
+      })
+        .then(function (res) {
+          return res.json().then(function (data) {
+            return { ok: res.ok, data: data };
+          });
+        })
+        .then(function (result) {
+          if (!result.ok || !result.data.ok) {
+            throw new Error(result.data.error || 'submit_failed');
+          }
+          showFormStepAfterSubmit();
+        })
+        .catch(function () {
+          showFormError('Не удалось отправить заявку. Попробуйте ещё раз или напишите в Telegram.');
+        })
+        .finally(function () {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = btnText;
+          }
+        });
     });
   }
 
