@@ -33,12 +33,16 @@
   }
 
   /* ---- Reviews grid ---- */
-  function toEmbedUrl(url) {
+  function toEmbedUrl(url, videoId, pepper) {
+    if (videoId && pepper) {
+      return 'https://rutube.ru/play/embed/' + videoId + '/?p=' + encodeURIComponent(pepper);
+    }
+
     if (!url) return '';
 
     var privateMatch = url.match(/rutube\.ru\/video\/private\/([a-f0-9]+)\/?\?(?:.*&)?p=([^&]+)/i);
     if (privateMatch) {
-      return 'https://rutube.ru/play/embed/' + privateMatch[1] + '/?p=' + privateMatch[2];
+      return 'https://rutube.ru/play/embed/' + privateMatch[1] + '/?p=' + encodeURIComponent(privateMatch[2]);
     }
 
     var publicMatch = url.match(/rutube\.ru\/video\/([a-f0-9]+)/i);
@@ -49,11 +53,30 @@
     return url;
   }
 
-  function buildVideoSrc(url, muted) {
-    var embed = toEmbedUrl(url);
+  function rutubeCommand(frame, type, data) {
+    if (!frame || !frame.contentWindow) return;
+    try {
+      var payload = { type: type };
+      if (data !== undefined) payload.data = data;
+      frame.contentWindow.postMessage(JSON.stringify(payload), '*');
+    } catch (err) { /* iframe may not be ready yet */ }
+  }
+
+  function rutubePlay(frame, unmuted) {
+    rutubeCommand(frame, 'player:play');
+    rutubeCommand(frame, unmuted ? 'player:unMute' : 'player:mute');
+  }
+
+  function buildVideoSrc(url, muted, videoId, pepper) {
+    var embed = toEmbedUrl(url, videoId, pepper);
     if (!embed) return '';
-    var params = 'autoplay=1' + (muted ? '&mute=1' : '');
-    return embed + (embed.indexOf('?') > -1 ? '&' : '?') + params;
+
+    var params = ['autoplay=1'];
+    if (muted) {
+      params.push('mute=1', 'autostartmute=true');
+    }
+
+    return embed + (embed.indexOf('?') > -1 ? '&' : '?') + params.join('&');
   }
 
   function getYouTubeThumb(url) {
@@ -468,18 +491,32 @@
     var frame = document.getElementById('aboutVideoFrame');
     var player = document.getElementById('aboutVideo');
 
-    if (!frame || !av.videoUrl) return;
+    if (!frame || (!av.videoUrl && !av.videoId)) return;
 
-    frame.src = buildVideoSrc(av.videoUrl, true);
+    var embedSrc = buildVideoSrc(av.videoUrl, true, av.videoId, av.pepper);
+    var playerReady = false;
+
+    function onPlayerMessage(event) {
+      if (event.origin !== 'https://rutube.ru') return;
+
+      try {
+        var message = JSON.parse(event.data);
+        if (message.type === 'player:ready') {
+          playerReady = true;
+          rutubePlay(frame, false);
+        }
+      } catch (err) { /* ignore non-JSON messages */ }
+    }
+
+    window.addEventListener('message', onPlayerMessage);
+
+    frame.src = embedSrc;
 
     if (player) {
       player.addEventListener('click', function () {
         if (player.classList.contains('is-unmuted')) return;
 
-        try {
-          frame.contentWindow.postMessage(JSON.stringify({ type: 'player:unMute' }), '*');
-        } catch (err) { /* iframe may not be ready yet */ }
-
+        rutubePlay(frame, true);
         player.classList.add('is-unmuted');
       });
     }
