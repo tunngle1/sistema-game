@@ -12,18 +12,19 @@ window.SITE_CONFIG = {
 
   /* Форма регистрации → Telegram-бот (папка bot/, деплой отдельно на Vercel) */
   form: {
-    endpoint: 'https://sistema-game-bot.vercel.app/api/register'
+    endpoint: 'https://sistema-game-bot.vercel.app/api/register',
+    successTitle: 'Спасибо!',
+    successMessage: 'Заявка отправлена. Мы свяжемся с вами в Telegram в ближайшее время и подтвердим участие.'
   },
 
-  /* Оплата — после регистрации редирект на paymentUrl */
+  /* Оплата — временно отключена, только заявка в Telegram */
   payment: {
-    enabled: true,
+    enabled: false,
     price: 5000,
     currency: '₽',
     label: 'Участие в игре «Система» · 15 июля · Москва',
-    paymentUrl: '', /* Prodamus / ЮKassa / Tinkoff — ссылка на оплату */
-    successUrl: ''  /* страница «спасибо» после оплаты (опционально) */
-    /* Позже: webhook оплаты → bot/api/payment.js → сообщение в TG «Статус: Оплачено» */
+    paymentUrl: '',
+    successUrl: ''
   },
 
   /* Ссылки */

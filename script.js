@@ -13,7 +13,18 @@
   }
 
   function initPricing() {
-    if (!payment.enabled) return;
+    var modalPriceTag = document.querySelector('#modalStep1 .modal__price-tag');
+    var pricingSecure = document.querySelector('.pricing__secure');
+    var priceEl = document.querySelector('.pricing__price');
+    var priceNote = document.getElementById('priceLabel');
+
+    if (!payment.enabled) {
+      if (priceEl) priceEl.hidden = true;
+      if (priceNote) priceNote.hidden = true;
+      if (modalPriceTag) modalPriceTag.hidden = true;
+      if (pricingSecure) pricingSecure.hidden = true;
+      return;
+    }
 
     var priceStr = formatPrice(payment.price || 0) + ' ' + (payment.currency || '₽');
 
@@ -247,10 +258,22 @@
 
   function showFormStepAfterSubmit() {
     if (step1) step1.hidden = true;
+    if (step2) step2.hidden = true;
+
     if (payment.enabled && payment.paymentUrl) {
       goToPayment();
-    } else if (stepDev) {
-      step1.hidden = true;
+      return;
+    }
+
+    if (stepDev) {
+      var successTitle = formConfig.successTitle || 'Спасибо!';
+      var successMessage = formConfig.successMessage || 'Заявка отправлена. Мы свяжемся с вами в ближайшее время.';
+
+      var titleEl = stepDev.querySelector('.modal__title');
+      var subtitleEl = stepDev.querySelector('.modal__subtitle');
+      if (titleEl) titleEl.textContent = successTitle;
+      if (subtitleEl) subtitleEl.textContent = successMessage;
+
       stepDev.hidden = false;
     }
   }
@@ -479,7 +502,10 @@
 
     var pricingDesc = document.getElementById('pricingDesc');
     if (pricingDesc && event.city) {
-      pricingDesc.textContent = 'Места ограничены. ' + event.format + ' в ' + event.city + ', ' + event.date + ', ' + event.time + '. После регистрации — оплата и подтверждение участия.';
+      var desc = 'Места ограничены. ' + event.format + ' в ' + event.city + ', ' + event.date + ', ' + event.time + '.';
+      pricingDesc.textContent = payment.enabled
+        ? desc + ' После регистрации — оплата и подтверждение участия.'
+        : desc + ' Оставьте заявку — мы свяжемся с вами и подтвердим участие.';
     }
 
     document.title = document.title.replace(/· \d+ июля[^·]*/, '· ' + event.date + (event.city ? ' · ' + event.city : ''));
