@@ -100,6 +100,19 @@ ul { list-style: none; }
 .btn--lg { padding: 16px 36px; font-size: var(--fs-md); }
 .btn--full { width: 100%; }
 
+.btn--outline {
+  background: transparent;
+  color: var(--blue-light);
+  border: 1.5px solid rgba(43, 140, 255, 0.45);
+  box-shadow: none;
+}
+
+.btn--outline:hover {
+  background: rgba(43, 140, 255, 0.08);
+  border-color: var(--blue-light);
+  transform: translateY(-1px);
+}
+
 /* ---- Logo ---- */
 .logo {
   display: flex;
@@ -984,6 +997,8 @@ ul { list-style: none; }
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
 }
+
+.pricing__action #linkAskQuestion { margin-top: 12px; }
 
 .pricing__amount {
   font-size: var(--fs-price);

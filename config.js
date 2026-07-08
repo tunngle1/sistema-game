@@ -7,7 +7,7 @@ window.SITE_CONFIG = {
     time: '19:00–22:00',
     city: 'Москва',
     format: 'Офлайн',
-    address: '' /* адрес площадки — вставьте когда будет */
+    address: 'г. Москва, Волоколамское шоссе, д. 2'
   },
 
   /* Форма регистрации → Telegram-бот (папка bot/, деплой отдельно на Vercel) */
@@ -30,6 +30,7 @@ window.SITE_CONFIG = {
   /* Ссылки */
   links: {
     telegram: 'https://t.me/shkarovbiz',
+    askTelegram: 'https://t.me/Shkarovbis',
     youtube: 'https://www.youtube.com/@ДмитрийШкаров-007',
     privacy: 'privacy.html',
     consentPd: 'legal/consent-pd.html',

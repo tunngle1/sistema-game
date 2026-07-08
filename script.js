@@ -398,6 +398,9 @@
     var tg = document.getElementById('linkTelegram');
     if (tg && links.telegram) tg.href = links.telegram;
 
+    var ask = document.getElementById('linkAskQuestion');
+    if (ask && links.askTelegram) ask.href = links.askTelegram;
+
     var yt = document.getElementById('linkYoutube');
     if (yt && links.youtube) yt.href = links.youtube;
   }
@@ -487,7 +490,11 @@
 
     var heroMeta = document.getElementById('heroMeta');
     if (heroMeta) {
-      var items = [event.date, event.time, (event.city && event.format) ? event.city + ' · ' + event.format : event.city || event.format].filter(Boolean);
+      var items = [event.date, event.time];
+      if (event.address) items.push(event.address);
+      else if (event.city && event.format) items.push(event.city + ' · ' + event.format);
+      else if (event.city || event.format) items.push(event.city || event.format);
+      if (event.address && event.format) items.push(event.format);
       heroMeta.innerHTML = items.map(function (item) {
         return '<span class="hero__meta-item">' + item + '</span>';
       }).join('');
@@ -495,6 +502,14 @@
 
     var ctaDate = document.getElementById('ctaDate');
     if (ctaDate) ctaDate.textContent = event.date;
+
+    var ctaSeats = document.getElementById('ctaSeats');
+    if (ctaSeats) {
+      var ctaParts = [event.time, event.format].filter(Boolean);
+      if (event.address) ctaParts.unshift(event.address);
+      else if (event.city) ctaParts.unshift(event.city);
+      ctaSeats.textContent = ctaParts.join(' · ');
+    }
 
     var modalSubtitle = document.getElementById('modalSubtitle');
     if (modalSubtitle) {
@@ -504,11 +519,15 @@
 
     var pricingDesc = document.getElementById('pricingDesc');
     if (pricingDesc && event.city) {
-      var desc = 'Места ограничены. ' + event.format + ' в ' + event.city + ', ' + event.date + ', ' + event.time + '.';
+      var location = event.address || event.city;
+      var desc = 'Места ограничены. ' + event.format + ' — ' + location + ', ' + event.date + ', ' + event.time + '.';
       pricingDesc.textContent = payment.enabled
         ? desc + ' После регистрации — оплата и подтверждение участия.'
         : desc + ' Оставьте заявку — мы свяжемся с вами и подтвердим участие.';
     }
+
+    var pricingLocation = document.getElementById('pricingLocation');
+    if (pricingLocation && event.address) pricingLocation.textContent = event.address;
 
     document.title = document.title.replace(/· \d+ июля[^·]*/, '· ' + event.date + (event.city ? ' · ' + event.city : ''));
   }
