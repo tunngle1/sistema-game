@@ -321,7 +321,8 @@
       savedFormData = {
         name: form.name.value.trim(),
         phone: form.phone.value.trim(),
-        telegram: form.telegram.value.trim()
+        telegram: form.telegram.value.trim(),
+        consentMailing: !!(form.consent_mailing && form.consent_mailing.checked)
       };
 
       var endpoint = formConfig.endpoint;
@@ -345,6 +346,7 @@
           name: savedFormData.name,
           phone: savedFormData.phone,
           telegram: savedFormData.telegram,
+          consentMailing: savedFormData.consentMailing,
           event: {
             date: event.date,
             time: event.time,

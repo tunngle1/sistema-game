@@ -32,7 +32,8 @@ window.SITE_CONFIG = {
     telegram: 'https://t.me/shkarovbiz',
     youtube: 'https://www.youtube.com/@ДмитрийШкаров-007',
     privacy: 'privacy.html',
-    offer: 'privacy.html#offer'
+    consentPd: 'legal/consent-pd.html',
+    consentMailing: 'legal/consent-mailing.html'
   },
 
   /* Изображения */
