@@ -1288,6 +1288,28 @@ ul { list-style: none; }
 .legal { padding: 50px 0 70px; }
 .legal__inner { max-width: 720px; }
 
+.legal__inner--wide { max-width: 860px; }
+
+.legal__toc {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 24px;
+}
+
+.legal__toc li {
+  margin-bottom: 8px;
+}
+
+.legal__toc a {
+  color: var(--blue-light);
+  text-decoration: underline;
+}
+
+.legal__chapter {
+  font-size: var(--fs-xl);
+  margin-top: 8px;
+}
+
 .legal__title {
   font-size: var(--fs-legal);
   font-weight: 700;

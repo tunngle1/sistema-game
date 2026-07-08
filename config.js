@@ -33,7 +33,8 @@ window.SITE_CONFIG = {
     youtube: 'https://www.youtube.com/@ДмитрийШкаров-007',
     privacy: 'privacy.html',
     consentPd: 'legal/consent-pd.html',
-    consentMailing: 'legal/consent-mailing.html'
+    consentMailing: 'legal/consent-mailing.html',
+    offer: 'legal/offer.html'
   },
 
   /* Изображения */
