@@ -1177,20 +1177,23 @@ ul { list-style: none; }
   position: relative;
   width: 100%;
   max-width: 420px;
+  max-height: min(90dvh, 680px);
   background: #0a1428;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 36px;
+  padding: 44px 20px 20px;
   box-shadow: 0 0 60px rgba(43, 140, 255, 0.15);
   transform: translateY(16px);
   transition: transform var(--transition);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .modal.open .modal__dialog { transform: translateY(0); }
 
 .modal__close {
   position: absolute;
-  top: 14px; right: 14px;
+  top: 12px; right: 12px;
   width: 32px; height: 32px;
   display: flex;
   align-items: center;
@@ -1202,21 +1205,32 @@ ul { list-style: none; }
 
 .modal__close:hover { background: var(--bg-card); color: var(--text); }
 
-.modal__title { font-size: var(--fs-xl); font-weight: 700; margin-bottom: 4px; }
-.modal__subtitle { font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: 20px; }
+.modal__title {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  margin-bottom: 2px;
+  padding-right: 28px;
+}
+
+.modal__subtitle {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
 
 .modal__step[hidden] { display: none; }
 
 .modal__price-tag {
   display: inline-block;
-  padding: 8px 16px;
+  padding: 6px 12px;
   background: rgba(43, 140, 255, 0.1);
   border: 1px solid var(--border);
   border-radius: 8px;
-  font-size: var(--fs-body);
+  font-size: var(--fs-sm);
   font-weight: 700;
   color: var(--blue-light);
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .modal__price-tag--large {
@@ -1227,29 +1241,63 @@ ul { list-style: none; }
 }
 
 .modal__referral {
-  margin-bottom: 20px;
-  padding: 14px 16px;
+  margin-bottom: 14px;
+  padding: 10px 12px;
   background: rgba(43, 140, 255, 0.08);
   border: 1px solid var(--border-light);
   border-radius: 10px;
 }
 
 .modal__referral p {
-  font-size: var(--fs-xs);
+  font-size: 12px;
   color: var(--text-muted);
-  line-height: 1.55;
-  margin-bottom: 8px;
+  line-height: 1.45;
+  margin: 0;
 }
 
-.modal__referral p:last-child { margin-bottom: 0; }
+.modal__referral-badge {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(43, 140, 255, 0.18);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue-light);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+}
 
-.modal__referral-lead { color: var(--text); }
-
-.modal__referral-benefit strong,
-.modal__referral-price strong {
+.modal__referral strong {
   color: var(--blue-light);
   font-weight: 700;
 }
+
+.modal__form .field { margin-bottom: 10px; }
+
+.modal__form .field span {
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+
+.modal__form .field input {
+  padding: 10px 12px;
+  font-size: var(--fs-sm);
+}
+
+.modal__form .checkbox {
+  margin-bottom: 10px;
+  gap: 8px;
+}
+
+.modal__form .checkbox span {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.modal__form .btn { margin-top: 2px; }
 
 .field { display: block; margin-bottom: 14px; }
 
