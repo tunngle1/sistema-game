@@ -1226,6 +1226,31 @@ ul { list-style: none; }
   margin: 16px 0;
 }
 
+.modal__referral {
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  background: rgba(43, 140, 255, 0.08);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+}
+
+.modal__referral p {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 8px;
+}
+
+.modal__referral p:last-child { margin-bottom: 0; }
+
+.modal__referral-lead { color: var(--text); }
+
+.modal__referral-benefit strong,
+.modal__referral-price strong {
+  color: var(--blue-light);
+  font-weight: 700;
+}
+
 .field { display: block; margin-bottom: 14px; }
 
 .field span {
