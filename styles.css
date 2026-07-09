@@ -992,6 +992,37 @@ ul { list-style: none; }
   font-weight: 700;
 }
 
+.pricing__referral {
+  margin-top: 24px;
+  padding: 20px 22px;
+  background: rgba(43, 140, 255, 0.08);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-glow);
+}
+
+.pricing__referral p {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+
+.pricing__referral p:last-child { margin-bottom: 0; }
+
+.pricing__referral-lead { font-size: var(--fs-md); color: var(--text); }
+
+.pricing__referral-benefit strong {
+  color: var(--blue-light);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.pricing__referral-price strong {
+  color: var(--blue-light);
+  font-weight: 700;
+}
+
 .pricing__action {
   text-align: center;
   padding: 36px 28px;

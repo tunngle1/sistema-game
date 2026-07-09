@@ -17,6 +17,11 @@
     var pricingSecure = document.querySelector('.pricing__secure');
     var priceEl = document.querySelector('.pricing__price');
     var priceNote = document.getElementById('priceLabel');
+    var referralPrice = document.getElementById('pricingReferralPrice');
+    var priceFormatted = formatPrice(payment.price || 0);
+    var priceStr = priceFormatted + ' ' + (payment.currency || '₽');
+
+    if (referralPrice) referralPrice.textContent = priceStr;
 
     if (!payment.enabled) {
       if (priceEl) priceEl.hidden = true;

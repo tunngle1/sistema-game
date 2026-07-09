@@ -20,7 +20,7 @@ window.SITE_CONFIG = {
   /* Оплата — временно отключена, только заявка в Telegram */
   payment: {
     enabled: false,
-    price: 5000,
+    price: 2900,
     currency: '₽',
     label: 'Участие в игре «Система» · 15 июля · Москва',
     paymentUrl: '',
