@@ -12,6 +12,22 @@
     return Number(price).toLocaleString('ru-RU');
   }
 
+  function getInitPaymentEndpoint() {
+    if (payment.initEndpoint) return payment.initEndpoint;
+    if (formConfig.endpoint && /\/api\/register\/?$/.test(formConfig.endpoint)) {
+      return formConfig.endpoint.replace(/\/register\/?$/, '/init-payment');
+    }
+    return '';
+  }
+
+  function hasApiPayment() {
+    return !!getInitPaymentEndpoint();
+  }
+
+  function hasAnyPayment() {
+    return hasApiPayment() || !!payment.paymentUrl;
+  }
+
   function initPricing() {
     var modalPriceTag = document.querySelector('#modalStep1 .modal__price-tag');
     var pricingSecure = document.querySelector('.pricing__secure');
@@ -21,7 +37,7 @@
     var modalReferralPrice = document.getElementById('modalReferralPrice');
     var linkPay = document.getElementById('linkPay');
     var pricingPayNote = document.getElementById('pricingPayNote');
-    var hasPaymentLink = !!payment.paymentUrl;
+    var hasPaymentLink = hasAnyPayment();
     var priceFormatted = formatPrice(payment.price || 0);
     var priceStr = priceFormatted + ' ' + (payment.currency || '₽');
 
@@ -30,7 +46,7 @@
 
     if (hasPaymentLink) {
       if (linkPay) {
-        linkPay.href = payment.paymentUrl;
+        linkPay.href = '#';
         linkPay.hidden = false;
       }
       if (pricingPayNote) {
@@ -289,12 +305,12 @@
     if (step2) step2.hidden = true;
     if (stepDev) stepDev.hidden = true;
 
-    if (payment.enabled && payment.paymentUrl) {
+    if (payment.enabled && hasAnyPayment()) {
       goToPayment();
       return;
     }
 
-    if (payment.paymentUrl && step2) {
+    if (hasAnyPayment() && step2) {
       var modalPayNote = document.getElementById('modalPayNote');
       if (modalPayNote) {
         modalPayNote.textContent = payment.note
@@ -337,10 +353,61 @@
   }
 
   function goToPayment() {
-    var url = buildPaymentUrl();
-    if (!url) return false;
-    window.location.href = url;
-    return true;
+    var initEndpoint = getInitPaymentEndpoint();
+
+    if (!initEndpoint) {
+      var staticUrl = buildPaymentUrl();
+      if (!staticUrl) return Promise.resolve(false);
+      window.location.href = staticUrl;
+      return Promise.resolve(true);
+    }
+
+    if (!savedFormData || !savedFormData.name || !savedFormData.phone) {
+      openModal();
+      return Promise.resolve(false);
+    }
+
+    if (savedFormData.formUrl) {
+      window.location.href = savedFormData.formUrl;
+      return Promise.resolve(true);
+    }
+
+    return fetch(initEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: savedFormData.name,
+        phone: savedFormData.phone,
+        telegram: savedFormData.telegram,
+        amount: payment.price,
+        currency: payment.currency,
+        productName: payment.label,
+        successUrl: payment.successUrl,
+        failUrl: payment.failUrl,
+        event: {
+          date: event.date,
+          time: event.time,
+          city: event.city,
+          format: event.format,
+          price: payment.price,
+          currency: payment.currency
+        }
+      })
+    })
+      .then(function (res) {
+        return res.json().then(function (data) {
+          return { ok: res.ok, data: data };
+        });
+      })
+      .then(function (result) {
+        if (!result.ok || !result.data.ok || !result.data.formUrl) {
+          throw new Error((result.data && result.data.error) || 'payment_init_failed');
+        }
+        savedFormData.formUrl = result.data.formUrl;
+        savedFormData.dealId = result.data.dealId;
+        window.location.href = result.data.formUrl;
+        return true;
+      });
   }
 
   function showFormError(message) {
@@ -407,9 +474,11 @@
             throw new Error(result.data.error || 'submit_failed');
           }
 
-          if (payment.enabled && payment.paymentUrl) {
+          if (payment.enabled && hasAnyPayment()) {
             if (submitBtn) submitBtn.textContent = 'Переход к оплате…';
-            goToPayment();
+            goToPayment().catch(function () {
+              showFormError('Не удалось открыть оплату. Попробуйте ещё раз или напишите в Telegram.');
+            });
             return;
           }
 
@@ -429,7 +498,12 @@
 
   if (payBtn) {
     payBtn.addEventListener('click', function () {
-      goToPayment();
+      payBtn.disabled = true;
+      goToPayment().catch(function () {
+        showFormError('Не удалось открыть оплату. Попробуйте ещё раз или напишите в Telegram.');
+      }).finally(function () {
+        payBtn.disabled = false;
+      });
     });
   }
 
@@ -440,6 +514,17 @@
 
     var ask = document.getElementById('linkAskQuestion');
     if (ask && links.askTelegram) ask.href = links.askTelegram;
+
+    var pay = document.getElementById('linkPay');
+    if (pay && hasAnyPayment()) {
+      pay.addEventListener('click', function (e) {
+        if (!hasApiPayment()) return;
+        e.preventDefault();
+        goToPayment().catch(function () {
+          alert('Сначала оставьте заявку с именем и телефоном, затем нажмите «Оплатить участие».');
+        });
+      });
+    }
 
     var yt = document.getElementById('linkYoutube');
     if (yt && links.youtube) yt.href = links.youtube;
