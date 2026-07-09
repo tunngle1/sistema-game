@@ -19,19 +19,40 @@
     var priceNote = document.getElementById('priceLabel');
     var referralPrice = document.getElementById('pricingReferralPrice');
     var modalReferralPrice = document.getElementById('modalReferralPrice');
+    var linkPay = document.getElementById('linkPay');
+    var pricingPayNote = document.getElementById('pricingPayNote');
+    var hasPaymentLink = !!payment.paymentUrl;
     var priceFormatted = formatPrice(payment.price || 0);
     var priceStr = priceFormatted + ' ' + (payment.currency || '₽');
 
     if (referralPrice) referralPrice.textContent = priceStr;
     if (modalReferralPrice) modalReferralPrice.textContent = priceStr;
 
-    if (!payment.enabled) {
+    if (hasPaymentLink) {
+      if (linkPay) {
+        linkPay.href = payment.paymentUrl;
+        linkPay.hidden = false;
+      }
+      if (pricingPayNote) {
+        pricingPayNote.textContent = payment.note || '';
+        pricingPayNote.hidden = !payment.note;
+      }
+      if (priceEl) priceEl.hidden = false;
+      if (priceNote) priceNote.hidden = false;
+      if (pricingSecure) pricingSecure.hidden = false;
+    }
+
+    if (!payment.enabled && !hasPaymentLink) {
       if (priceEl) priceEl.hidden = true;
       if (priceNote) priceNote.hidden = true;
       if (modalPriceTag) modalPriceTag.hidden = true;
       if (pricingSecure) pricingSecure.hidden = true;
+      if (linkPay) linkPay.hidden = true;
+      if (pricingPayNote) pricingPayNote.hidden = true;
       return;
     }
+
+    if (!payment.enabled) return;
 
     var priceStr = formatPrice(payment.price || 0) + ' ' + (payment.currency || '₽');
 
@@ -266,9 +287,21 @@
   function showFormStepAfterSubmit() {
     if (step1) step1.hidden = true;
     if (step2) step2.hidden = true;
+    if (stepDev) stepDev.hidden = true;
 
     if (payment.enabled && payment.paymentUrl) {
       goToPayment();
+      return;
+    }
+
+    if (payment.paymentUrl && step2) {
+      var modalPayNote = document.getElementById('modalPayNote');
+      if (modalPayNote) {
+        modalPayNote.textContent = payment.note
+          ? payment.note + '. После оплаты мы свяжемся с вами в Telegram.'
+          : 'После оплаты мы свяжемся с вами в Telegram.';
+      }
+      step2.hidden = false;
       return;
     }
 

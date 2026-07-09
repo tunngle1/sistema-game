@@ -1033,6 +1033,15 @@ ul { list-style: none; }
 
 .pricing__action #linkAskQuestion { margin-top: 12px; }
 
+.pricing__action #linkPay { margin-top: 12px; }
+
+.pricing__pay-note {
+  font-size: var(--fs-xs);
+  color: var(--text-dim);
+  margin-top: 8px;
+  text-align: center;
+}
+
 .pricing__amount {
   font-size: var(--fs-price);
   font-weight: 800;

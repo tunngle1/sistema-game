@@ -17,14 +17,15 @@ window.SITE_CONFIG = {
     successMessage: 'Заявка отправлена. Мы свяжемся с вами в Telegram в ближайшее время и подтвердим участие.'
   },
 
-  /* Оплата — временно отключена, только заявка в Telegram */
+  /* Оплата — GetPlatinum (тестовая ссылка) */
   payment: {
     enabled: false,
     price: 2900,
     currency: '₽',
     label: 'Участие в игре «Система» · 15 июля · Москва',
-    paymentUrl: '',
-    successUrl: ''
+    paymentUrl: 'https://shkarov-dmitrii.getplatinum.ru/payment/DbPtgtz',
+    successUrl: '',
+    note: 'Тестовая оплата'
   },
 
   /* Ссылки */
